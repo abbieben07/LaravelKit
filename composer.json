@@ -1,47 +1,48 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "novacio/core",
+    "description": "This package sets up my common code",
     "keywords": [
-        ":vendor_name",
+        "abbieben07",
         "laravel",
-        ":package_slug"
+        "core"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/abbieben07/LaravelCore",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Abraham Achile Ben-Obaje",
+            "email": "abbieben07@gmail.com",
             "role": "Developer"
         }
     ],
     "require": {
         "php": "^8.1",
+        "cknow/laravel-money": "^7.0",
+        "illuminate/contracts": "^9.0",
+        "inertiajs/inertia-laravel": "^0.6.3",
         "spatie/laravel-package-tools": "^1.13.0",
-        "illuminate/contracts": "^9.0"
+        "spatie/laravel-sluggable": "^3.4"
     },
     "require-dev": {
+        "laravel/dusk": "^7.1",
         "laravel/pint": "^1.0",
         "nunomaduro/collision": "^6.0",
-        "nunomaduro/larastan": "^2.0.1",
+        "nunomaduro/larastan": "2.0",
         "orchestra/testbench": "^7.0",
         "pestphp/pest": "^1.21",
         "pestphp/pest-plugin-laravel": "^1.1",
-        "phpstan/extension-installer": "^1.1",
-        "phpstan/phpstan-deprecation-rules": "^1.0",
-        "phpstan/phpstan-phpunit": "^1.0",
         "phpunit/phpunit": "^9.5",
         "spatie/laravel-ray": "^1.26"
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories"
+            "Novacio\\": "src",
+            "Novacio\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "Novacio\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -61,10 +62,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Novacio\\CoreServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "Core": "Novacio\\Facades\\Core"
             }
         }
     },

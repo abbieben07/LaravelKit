@@ -1,0 +1,165 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ namespacedModel }};
+use {{ rootNamespace }}Http\Controllers\Controller;
+use {{ namespacedRequests }}
+use Inertia\Response;
+use Illuminate\Http\JsonResponse;
+
+class {{ class }} extends Controller
+{
+    public function data({{model}} ${{modelVariable}}): {{model}}
+    {
+        return ${{modelVariable}}->setAppends([
+
+        ])->load([
+
+        ]);
+    }
+
+    public function groupPage(): Response
+    {
+        $this->validate("viewAny", {{model}}::class);
+
+        return Inertia::render("{{model}}/Group.vue");
+    }
+
+    public function createPage(): Response
+    {
+        $this->validate("create", {{model}}::class);
+
+        return Inertia::render("{{model}}/Create.vue");
+    }
+
+    public function singlePage($request, {{model}} ${{modelVariable}}): Response
+    {
+        $this->validate("view", ${{modelVariable}});
+
+        return Inertia::render("{{model}}/Single.vue", [
+            "{{modelVariable}}" => $this->data(${{modelVariable}})
+        ]);
+    }
+
+    public function updatePage($request, {{model}} ${{modelVariable}}): Response
+    {
+        $this->validate("update", ${{modelVariable}});
+
+        return Inertia::render("{{model}}/Update.vue", [
+            "{{modelVariable}}" => $this->data(${{modelVariable}})
+        ]);
+    }
+
+    public function datatable(Request $request): JsonResponse
+    {
+         $this->validate("viewAny", {{model}}::class);
+
+         return {{model}}::toDatatable($request);
+    }
+
+    public function create(CreateRequest $request): JsonResponse
+    {
+         $this->validate("create", {{model}}::class);
+
+         ${{modelVariable}} = new {{model}}();
+         $this->save($modelVariable);
+
+         return response()->json([
+            "{{modelVariable}}" => ${{$modelVariable}}
+         ]);
+    }
+
+
+    public function create(UpdateRequest $request, {{model}} ${{modelVariable}}): JsonResponse
+    {
+         $this->validate("update", {{modelVariable}});
+         $this->save($modelVariable);
+
+         return response()->json([
+            "{{modelVariable}}" => ${{$modelVariable}}
+         ]);
+    }
+
+    public function save($request, {{model}} &${{$modelVariable}}): {{model}}
+    {
+         ${{modelVariable}}->save();
+    }
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \{{ namespacedStoreRequest }}  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store({{ storeRequest }} $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @return \Illuminate\Http\Response
+     */
+    public function show({{ model }} ${{ modelVariable }})
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @return \Illuminate\Http\Response
+     */
+    public function edit({{ model }} ${{ modelVariable }})
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \{{ namespacedUpdateRequest }}  $request
+     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @return \Illuminate\Http\Response
+     */
+    public function update({{ updateRequest }} $request, {{ model }} ${{ modelVariable }})
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy({{ model }} ${{ modelVariable }})
+    {
+        //
+    }
+}

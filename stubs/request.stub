@@ -1,0 +1,28 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Foundation\Http\FormRequest;
+use App\Models\User;
+
+/**
+* {{ class }}
+*
+* @method User user()
+*/
+class {{ class }} extends FormRequest
+{
+    
+    public function authorize(): bool
+    {
+        return false;
+    }
+
+   
+    public function rules(): array
+    {
+        return [
+            //
+        ];
+    }
+}
