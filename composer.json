@@ -1,12 +1,12 @@
 {
-    "name": "novacio/core",
+    "name": "abbieben/laravel-kit",
     "description": "This package sets up my common code",
     "keywords": [
         "abbieben07",
         "laravel",
         "core"
     ],
-    "homepage": "https://github.com/abbieben07/LaravelCore",
+    "homepage": "https://github.com/abbieben07/LaravelKit",
     "license": "MIT",
     "authors": [
         {
