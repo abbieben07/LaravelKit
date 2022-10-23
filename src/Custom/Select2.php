@@ -1,6 +1,6 @@
 <?php
 
-namespace Novacio\Core\Core;
+namespace Novacio\Custom;
 
 use Illuminate\Database\Eloquent\Builder as Model;
 use Illuminate\Database\Eloquent\Collection;

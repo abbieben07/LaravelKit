@@ -5,7 +5,6 @@ namespace Novacio\Providers;
 use Facebook\WebDriver\Exception\ElementNotInteractableException;
 use Facebook\WebDriver\Exception\WebDriverException;
 use Illuminate\Database\Eloquent\Builder as Model;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -14,8 +13,8 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
-use Novacio\Core\DataTable;
-use Novacio\Core\Select2;
+use Novacio\Custom\DataTable;
+use Novacio\Custom\Select2;
 
 class MacroServiceProvider extends ServiceProvider
 {

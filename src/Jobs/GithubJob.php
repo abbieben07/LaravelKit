@@ -1,6 +1,6 @@
 <?php
 
-namespace Novacio\Core\Jobs;
+namespace Novacio\Jobs;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;

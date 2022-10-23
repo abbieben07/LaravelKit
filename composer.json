@@ -37,7 +37,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Novacio\\Core\\": "src",
+            "Novacio\\": "src",
             "Novacio\\Database\\Factories\\": "database/factories"
         }
     },
@@ -65,9 +65,7 @@
             "providers": [
                 "Novacio\\CoreServiceProvider"
             ],
-            "aliases": {
-                "Core": "Novacio\\Facades\\Core"
-            }
+            "aliases": {}
         }
     },
     "minimum-stability": "dev",

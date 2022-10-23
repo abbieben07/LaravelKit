@@ -1,6 +1,6 @@
 <?php
 
-namespace Novacio\Core;
+namespace Novacio;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -15,7 +15,7 @@ class CoreServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name("core")
+            ->name("abbieben/laravel-kit")
             ->hasConfigFile("github")
             ->publishesServiceProvider("MacroServiceProvider")
             ->hasViews("")
