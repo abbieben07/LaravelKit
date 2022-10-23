@@ -13,10 +13,10 @@ trait Searchable
 {
     protected function fullTextWildcards($term): string
     {
-        $reservedSymbols = ["-", "+", "<", ">", "@", "(", ")", "~"];
-        $term = str_replace($reservedSymbols, "", $term);
+        $reservedSymbols = ['-', '+', '<', '>', '@', '(', ')', '~'];
+        $term = str_replace($reservedSymbols, '', $term);
 
-        $words = explode(" ", $term);
+        $words = explode(' ', $term);
 
         foreach ($words as $key => $word) {
             /**
@@ -28,16 +28,16 @@ trait Searchable
             }
         }
 
-        $searchTerm = implode(" ", $words);
+        $searchTerm = implode(' ', $words);
 
         return $searchTerm;
     }
 
     public function scopeSearch(Builder $query, string $term): Builder
     {
-        $columns = implode(",", $this->searchable);
-        $mode = config("app.search");
-        $query->selectRaw("*, MATCH ({$columns}) AGAINST (? IN {$mode}) as score", [$this->fullTextWildcards($term)])->whereRaw("MATCH ({$columns}) AGAINST (? IN {$mode})", $this->fullTextWildcards($term))->orderby("score", "DESC");
+        $columns = implode(',', $this->searchable);
+        $mode = config('app.search');
+        $query->selectRaw("*, MATCH ({$columns}) AGAINST (? IN {$mode}) as score", [$this->fullTextWildcards($term)])->whereRaw("MATCH ({$columns}) AGAINST (? IN {$mode})", $this->fullTextWildcards($term))->orderby('score', 'DESC');
 
         return $query;
     }
