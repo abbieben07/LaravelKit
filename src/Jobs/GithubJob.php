@@ -30,7 +30,7 @@ class GithubJob implements ShouldQueue, ShouldBeUnique
         shell_exec("{$prefix}npm install");
         shell_exec("{$prefix}php artisan env:decrypt --key={$key} --env=development");
         shell_exec("{$prefix}php artisan ziggy:generate");
-        shell_exec("export NODE_OPTIONS=--max_old_space_size=4096");
+        shell_exec('export NODE_OPTIONS=--max_old_space_size=4096');
         shell_exec("{$prefix}npm run dev");
         shell_exec("{$prefix}php artisan optimize");
         shell_exec("{$prefix}php artisan migrate");

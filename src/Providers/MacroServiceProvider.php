@@ -26,53 +26,53 @@ class MacroServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Str::macro("randomInt", fn ($count) => rand(pow(10, $count - 1), pow(10, $count) - 1));
-        Str::macro("similar", fn ($a, $b) => Str::lower($a) == Str::lower($b));
+        Str::macro('randomInt', fn ($count) => rand(pow(10, $count - 1), pow(10, $count) - 1));
+        Str::macro('similar', fn ($a, $b) => Str::lower($a) == Str::lower($b));
 
         //================================================================
         // Route Blueprint Modifications s
         //================================================================
-        Route::macro("plural", function () {
+        Route::macro('plural', function () {
             /** @var Route $this */
-            Str::of("Mango")->plural();
+            Str::of('Mango')->plural();
         });
 
         //================================================================
         // Request Blueprint Modifications
         //================================================================
-        Request::macro("active", function ($route) {
+        Request::macro('active', function ($route) {
             /** @var Request $this */
-            return $this->route()->named($route) ? "active" : "";
+            return $this->route()->named($route) ? 'active' : '';
         });
 
         //================================================================
         // Collections Modifications
         //================================================================
-        Collection::macro("sumMoney", function ($column) {
+        Collection::macro('sumMoney', function ($column) {
             /** @var Collection $this */
             return $this->sum(fn ($data) => $data->{$column}->getAmount());
         });
 
-        Collection::macro("members", function () {
+        Collection::macro('members', function () {
             /** @var Collection $this */
-            return $this->pluck("members")->flatten();
+            return $this->pluck('members')->flatten();
         });
 
-        Collection::macro("toDatatable", function (Request $request, $attributes, $where = []) {
+        Collection::macro('toDatatable', function (Request $request, $attributes, $where = []) {
             /** @var Collection $this */
-            $search = $request["search"]["value"];
-            $offset = $request["start"];
-            $number = $request["length"];
-            $orderable = $request->query("orderable");
-            $orderby = $request["columns"][$request["order"][0]["column"]]["name"];
-            $order = $request["order"][0]["dir"];
-            $filter = $request["filter"] ?? "all";
-            $trashed = $request["trash"] === "true";
+            $search = $request['search']['value'];
+            $offset = $request['start'];
+            $number = $request['length'];
+            $orderable = $request->query('orderable');
+            $orderby = $request['columns'][$request['order'][0]['column']]['name'];
+            $order = $request['order'][0]['dir'];
+            $filter = $request['filter'] ?? 'all';
+            $trashed = $request['trash'] === 'true';
 
             $collection = $this;
             $total = $this->count();
 
-            if (!empty($search)) {
+            if (! empty($search)) {
                 $collection = $collection->search($search);
             }
 
@@ -84,11 +84,11 @@ class MacroServiceProvider extends ServiceProvider
                 $collection = $collection->orderby($orderby, $order);
             }
 
-            if ($filter !== "all") {
-                $collection = $collection->where("", $filter);
+            if ($filter !== 'all') {
+                $collection = $collection->where('', $filter);
             }
 
-            if (!empty($where)) {
+            if (! empty($where)) {
                 foreach ($where as $field => $condition) {
                     $collection->where($field, $condition);
                 }
@@ -111,12 +111,12 @@ class MacroServiceProvider extends ServiceProvider
                 }
             }
 
-            $result = ["data" => $data, "recordsFiltered" => $filtered, "recordsTotal" => $total];
+            $result = ['data' => $data, 'recordsFiltered' => $filtered, 'recordsTotal' => $total];
 
             return response()->json($result);
         });
 
-        Collection::macro("props", function ($attributes) {
+        Collection::macro('props', function ($attributes) {
             /** @var Collection $this */
             return $this->map(
                 function ($item) use ($attributes) {
@@ -130,7 +130,7 @@ class MacroServiceProvider extends ServiceProvider
             );
         });
 
-        Collection::macro("paginate", function ($perPage, $page = null, $total = null, $pageName = "page") {
+        Collection::macro('paginate', function ($perPage, $page = null, $total = null, $pageName = 'page') {
             /** @var Collection $this */
             $page = $page ?: LengthAwarePaginator::resolveCurrentPage($pageName);
 
@@ -140,8 +140,8 @@ class MacroServiceProvider extends ServiceProvider
                 $perPage,
                 $page,
                 [
-                    "path" => LengthAwarePaginator::resolveCurrentPath(),
-                    "pageName" => $pageName,
+                    'path' => LengthAwarePaginator::resolveCurrentPath(),
+                    'pageName' => $pageName,
                 ]
             );
         });
@@ -150,7 +150,7 @@ class MacroServiceProvider extends ServiceProvider
         // Model Modifications
         //================================================================
 
-        Model::macro("columns", function () {
+        Model::macro('columns', function () {
             /** @var Model $this */
             return $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getModel()->getTable());
         });
@@ -160,7 +160,7 @@ class MacroServiceProvider extends ServiceProvider
          *
          * @method JsonResponse toDataTable(Request $request)
          */
-        Model::macro("toDatatable", function (Request $request): JsonResponse {
+        Model::macro('toDatatable', function (Request $request): JsonResponse {
             /** @var Model $this */
             return DataTable::toDataTable($this, $request);
         });
@@ -170,7 +170,7 @@ class MacroServiceProvider extends ServiceProvider
          *
          * @method toEditor()
          */
-        Model::macro("toEditor", function (Request $request, $action = null): JsonResponse {
+        Model::macro('toEditor', function (Request $request, $action = null): JsonResponse {
             /** @var Model $this */
             return DataTable::toEditor($this, $request, $action);
         });
@@ -180,35 +180,35 @@ class MacroServiceProvider extends ServiceProvider
          *
          * @method toSelect2(Request $request)
          */
-        Model::macro("toSelect2", function (Request $request): JsonResponse {
+        Model::macro('toSelect2', function (Request $request): JsonResponse {
             /** @var Model $this */
             return Select2::toSelect2($this, $request);
         });
 
-        Model::macro("clean", function () {
+        Model::macro('clean', function () {
             /** @var Model $this */
             foreach ($this->getModel()->getAttributes() as $key => $attribute) {
-                if (!in_array(($key), $this->columns())) {
+                if (! in_array(($key), $this->columns())) {
                     unset($this->getModel()->$key);
                 }
             }
         });
 
         if (\class_exists(\Laravel\Dusk\Browser::class)) {
-            \Laravel\Dusk\Browser::macro("select2", function ($field, $value = null, $wait = 2, $suffix = " + .select2") {
+            \Laravel\Dusk\Browser::macro('select2', function ($field, $value = null, $wait = 2, $suffix = ' + .select2') {
                 /** @var Browser $this */
                 $prefix = $this->resolver->prefix;
-                $selector = $field . $suffix;
+                $selector = $field.$suffix;
                 $element = $this->element($selector);
 
-                if (!$element && !$element?->isDisplayed()) {
+                if (! $element && ! $element?->isDisplayed()) {
                     throw new InvalidArgumentException("Selector [$selector] not found or not displayed.");
                 }
 
-                $container = ".select2-container";
-                $highlightedClass = ".select2-results__option--highlighted";
-                $highlightedSelector = ".select2-results__options " . $highlightedClass;
-                $selectableSelector = ".select2-results__options .select2-results__option--selectable";
+                $container = '.select2-container';
+                $highlightedClass = '.select2-results__option--highlighted';
+                $highlightedSelector = '.select2-results__options '.$highlightedClass;
+                $selectableSelector = '.select2-results__options .select2-results__option--selectable';
                 $searchSelector = "{$container} .select2-search__field";
 
                 $this->click($selector);
@@ -217,7 +217,7 @@ class MacroServiceProvider extends ServiceProvider
                 // @todo: may be a couple of times move scroll to down (ajax paging)
                 if (null === $value) {
                     //$this->pause($wait * 1000);
-                    $this->resolver->prefix = "";
+                    $this->resolver->prefix = '';
                     $this->waitFor($selectableSelector, $wait);
                     $options = $this->elements($selectableSelector);
                     $count = 1; //$this->attribute($field, "multiple") ? random_int(1, count($options)) : 1;
@@ -245,7 +245,7 @@ class MacroServiceProvider extends ServiceProvider
 
                         return $this;
                     } catch (WebDriverException $exception) {
-                        if (!$exception instanceof ElementNotInteractableException) {
+                        if (! $exception instanceof ElementNotInteractableException) {
                             throw $exception;
                         }
                         // ... otherwise ignore the exception and try another way

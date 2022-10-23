@@ -6,13 +6,13 @@ use Illuminate\Console\Command;
 
 class CoreCommand extends Command
 {
-    public $signature = "core";
+    public $signature = 'core';
 
-    public $description = "My command";
+    public $description = 'My command';
 
     public function handle(): int
     {
-        $this->comment("All done");
+        $this->comment('All done');
 
         return self::SUCCESS;
     }
