@@ -1,18 +1,17 @@
 <?php
 
-namespace Novacio\Traits;
+namespace Novacio\Core\Traits;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
 /**
  * Routes trait
- * 
+ *
  * @property-read string $model
  * @property-read string[] $url
  */
 trait Routes
 {
-
     public function url(): Attribute
     {
         return Attribute::make(get: function () {
@@ -20,20 +19,18 @@ trait Routes
             $update = route("{$this->model}.page.update", ["{$this->model}" => $this]);
             $delete = route("{$this->model}.page.delete", ["{$this->model}" => $this]);
 
-            $url =  ["single" => $single, "update" => $update, "delete" => $delete];
+            $url = ["single" => $single, "update" => $update, "delete" => $delete];
 
             return $url;
         });
     }
 
-
     public function model(): Attribute
     {
         return Attribute::make(
-            get: fn () =>  strtolower(basename(self::class))
+            get: fn () => strtolower(basename(self::class))
         );
     }
-
 
     public function getRouteKeyName(): string
     {

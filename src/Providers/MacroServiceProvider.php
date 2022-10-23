@@ -6,17 +6,14 @@ use Facebook\WebDriver\Exception\ElementNotInteractableException;
 use Facebook\WebDriver\Exception\WebDriverException;
 use Illuminate\Database\Eloquent\Builder as Model;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Schema\Grammars\MySqlGrammar;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Fluent;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
-
 use Novacio\Core\DataTable;
 use Novacio\Core\Select2;
 
@@ -29,41 +26,40 @@ class MacroServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
         Str::macro("randomInt", fn ($count) => rand(pow(10, $count - 1), pow(10, $count) - 1));
         Str::macro("similar", fn ($a, $b) => Str::lower($a) == Str::lower($b));
 
-        #================================================================
-        # Route Blueprint Modifications s
-        #================================================================
+        //================================================================
+        // Route Blueprint Modifications s
+        //================================================================
         Route::macro("plural", function () {
             /** @var Route $this */
             Str::of("Mango")->plural();
         });
 
-        #================================================================
-        # Request Blueprint Modifications
-        #================================================================
+        //================================================================
+        // Request Blueprint Modifications
+        //================================================================
         Request::macro("active", function ($route) {
             /** @var Request $this */
             return $this->route()->named($route) ? "active" : "";
         });
 
-        #================================================================
-        # Collections Modifications
-        #================================================================
+        //================================================================
+        // Collections Modifications
+        //================================================================
         Collection::macro("sumMoney", function ($column) {
             /** @var Collection $this */
             return $this->sum(fn ($data) => $data->{$column}->getAmount());
         });
 
         Collection::macro("members", function () {
-            /** @var Collection $this*/
+            /** @var Collection $this */
             return $this->pluck("members")->flatten();
         });
 
         Collection::macro("toDatatable", function (Request $request, $attributes, $where = []) {
-            /** @var Collection $this*/
+            /** @var Collection $this */
             $search = $request["search"]["value"];
             $offset = $request["start"];
             $number = $request["length"];
@@ -98,7 +94,6 @@ class MacroServiceProvider extends ServiceProvider
                 }
             }
 
-
             $filtered = $collection->count();
             $objects = $collection->map->get($attributes)->take($number)->skip($offset);
 
@@ -117,6 +112,7 @@ class MacroServiceProvider extends ServiceProvider
             }
 
             $result = ["data" => $data, "recordsFiltered" => $filtered, "recordsTotal" => $total];
+
             return response()->json($result);
         });
 
@@ -128,6 +124,7 @@ class MacroServiceProvider extends ServiceProvider
                     foreach ($attributes as $attribute) {
                         data_set($result, $attribute, data_get($item, $attribute));
                     }
+
                     return $result;
                 }
             );
@@ -149,19 +146,18 @@ class MacroServiceProvider extends ServiceProvider
             );
         });
 
-        #================================================================
-        # Model Modifications
-        #================================================================
+        //================================================================
+        // Model Modifications
+        //================================================================
 
         Model::macro("columns", function () {
             /** @var Model $this */
             return $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getModel()->getTable());
         });
 
-
         /**
          * @mixin Model
-         * 
+         *
          * @method JsonResponse toDataTable(Request $request)
          */
         Model::macro("toDatatable", function (Request $request): JsonResponse {
@@ -198,8 +194,6 @@ class MacroServiceProvider extends ServiceProvider
             }
         });
 
-
-
         if (\class_exists(\Laravel\Dusk\Browser::class)) {
             \Laravel\Dusk\Browser::macro("select2", function ($field, $value = null, $wait = 2, $suffix = " + .select2") {
                 /** @var Browser $this */
@@ -212,17 +206,16 @@ class MacroServiceProvider extends ServiceProvider
                 }
 
                 $container = ".select2-container";
-                $highlightedClass    = ".select2-results__option--highlighted";
+                $highlightedClass = ".select2-results__option--highlighted";
                 $highlightedSelector = ".select2-results__options " . $highlightedClass;
-                $selectableSelector  = ".select2-results__options .select2-results__option--selectable";
-                $searchSelector      = "{$container} .select2-search__field";
+                $selectableSelector = ".select2-results__options .select2-results__option--selectable";
+                $searchSelector = "{$container} .select2-search__field";
 
                 $this->click($selector);
 
                 // if $value equal null, find random element and click him.
                 // @todo: may be a couple of times move scroll to down (ajax paging)
                 if (null === $value) {
-
                     //$this->pause($wait * 1000);
                     $this->resolver->prefix = "";
                     $this->waitFor($selectableSelector, $wait);
@@ -235,6 +228,7 @@ class MacroServiceProvider extends ServiceProvider
                         //dump()
                         $option->click();
                     }
+
                     return $this;
                 }
 

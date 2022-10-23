@@ -1,6 +1,6 @@
 <?php
 
-namespace Novacio\Traits;
+namespace Novacio\Core\Traits;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,7 +12,7 @@ use Spatie\Sluggable\SlugOptions;
 
 /**
  * BaseModel
- * 
+ *
  * @property int $id
  * @property ?string $slug
  * @property string $model
@@ -49,7 +49,7 @@ trait BaseModel
     {
         if (is_string($slug)) {
             return static::where("slug", $slug)->first();
-        } else if (is_array($slug)) {
+        } elseif (is_array($slug)) {
             return static::whereIn("slug", $slug)->get();
         }
     }

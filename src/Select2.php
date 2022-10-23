@@ -1,6 +1,6 @@
 <?php
 
-namespace Novacio\Core;
+namespace Novacio\Core\Core;
 
 use Illuminate\Database\Eloquent\Builder as Model;
 use Illuminate\Database\Eloquent\Collection;
@@ -55,6 +55,7 @@ class Select2
         $collection = collect($data->toArray())->transform(
             function ($item) {
                 $item["id"] = $item["slug"];
+
                 return $item;
             }
         );
@@ -62,8 +63,8 @@ class Select2
         $response = [
             "results" => $collection,
             "pagination" => [
-                "more" => $more
-            ]
+                "more" => $more,
+            ],
         ];
 
         return response()->json($response);

@@ -1,6 +1,6 @@
 <?php
 
-namespace Novacio\Core;
+namespace Novacio\Core\Core;
 
 use Illuminate\Database\Eloquent\Builder as Model;
 use Illuminate\Database\Eloquent\Collection;
@@ -21,9 +21,8 @@ class DataTable
         $trashed = $request["trash"] === "true";
         $type = isset($filter["type"]) ? $filter["type"] : null;
 
-
         if ($object instanceof Model) {
-            /** @var Model $model*/
+            /** @var Model $model */
             $model = $object;
             $total = $model->get()->count();
 
@@ -34,7 +33,9 @@ class DataTable
                     foreach ($orders as $order) {
                         $dir = $order["dir"];
                         $column = $request["columns"][$order["column"]]["name"];
-                        if (in_array($column, $model->columns())) $model->orderby($column, $dir);
+                        if (in_array($column, $model->columns())) {
+                            $model->orderby($column, $dir);
+                        }
                     }
                 });
 
@@ -80,12 +81,11 @@ class DataTable
             "data" => $data,
             "recordsFiltered" => $filtered,
             "recordsTotal" => $total,
-            "categories" => $categories
+            "categories" => $categories,
         ];
 
         return response()->json($response);
     }
-
 
     public static function toEditor(Model $object, Request $request, $action): JsonResponse
     {
@@ -105,6 +105,7 @@ class DataTable
                     }
                 }
             }
+
             return $result;
         } elseif ($request["action"] == "edit") {
             $result = [];
@@ -118,6 +119,7 @@ class DataTable
                 }
                 $result[] = $object->id;
             }
+
             return $result;
         }
     }

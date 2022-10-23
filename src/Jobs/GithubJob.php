@@ -1,6 +1,6 @@
 <?php
 
-namespace Novacio\Jobs;
+namespace Novacio\Core\Jobs;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -15,12 +15,10 @@ class GithubJob implements ShouldQueue, ShouldBeUnique
 
     public $timeout = 3600;
 
-
     public function __construct()
     {
         //
     }
-
 
     public function handle(string $key)
     {
