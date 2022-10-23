@@ -1,6 +1,6 @@
 <?php
 
-namespace Novacio\Core\Traits;
+namespace Novacio\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 
