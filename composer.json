@@ -1,5 +1,6 @@
 {
     "name": "abbieben/laravel-kit",
+    "version": "1.0.1",
     "description": "This package sets up my common code",
     "keywords": [
         "abbieben07",

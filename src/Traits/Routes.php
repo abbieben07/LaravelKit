@@ -19,7 +19,7 @@ trait Routes
             $update = route("{$this->model}.page.update", ["{$this->model}" => $this]);
             $delete = route("{$this->model}.page.delete", ["{$this->model}" => $this]);
 
-            $url = ['single' => $single, 'update' => $update, 'delete' => $delete];
+            $url = ["single" => $single, "update" => $update, "delete" => $delete];
 
             return $url;
         });
@@ -34,12 +34,12 @@ trait Routes
 
     public function getRouteKeyName(): string
     {
-        return 'slug';
+        return "slug";
     }
 
     public function resolveRouteBinding($value, $field = null)
     {
-        return $this->where('slug', $value)->firstOrFail();
+        return $this->where("slug", $value)->firstOrFail();
     }
 
     public function resolveSoftDeletableRouteBinding($value, $field = null)

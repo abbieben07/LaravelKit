@@ -28,7 +28,7 @@ trait BaseModel
     use Searchable;
     use SoftDeletes;
 
-    public function resolveRouteBinding($value, $field = 'slug')
+    public function resolveRouteBinding($value, $field = "slug")
     {
         return $this->where($field, $value)->firstOrFail();
     }
@@ -36,21 +36,21 @@ trait BaseModel
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom('title')
-            ->saveSlugsTo('slug');
+            ->generateSlugsFrom("title")
+            ->saveSlugsTo("slug");
     }
 
     public function getRouteKeyName(): string
     {
-        return 'slug';
+        return "slug";
     }
 
     public static function findSlug(string|array $slug): Model|Collection|null
     {
         if (is_string($slug)) {
-            return static::where('slug', $slug)->first();
+            return static::where("slug", $slug)->first();
         } elseif (is_array($slug)) {
-            return static::whereIn('slug', $slug)->get();
+            return static::whereIn("slug", $slug)->get();
         }
     }
 }

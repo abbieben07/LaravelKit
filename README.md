@@ -1,9 +1,9 @@
 # This package sets up my common code
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/abbieben07/core.svg?style=flat-square)](https://packagist.org/packages/abbieben07/core)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/abbieben07/core/run-tests?label=tests)](https://github.com/abbieben07/core/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/abbieben07/core/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/abbieben07/core/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/abbieben07/core.svg?style=flat-square)](https://packagist.org/packages/abbieben07/core)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/abbieben07/LaravelKit.svg?style=flat-square)](https://packagist.org/packages/abbieben07/LaravelKit)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/abbieben07/LaravelKit/run-tests?label=tests)](https://github.com/abbieben07/LaravelKit/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/abbieben07/LaravelKit/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/abbieben07/LaravelKit/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/abbieben07/LaravelKit.svg?style=flat-square)](https://packagist.org/packages/abbieben07/LaravelKit)
 
 This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
 
@@ -20,7 +20,7 @@ We highly appreciate you sending us a postcard from your hometown, mentioning wh
 You can install the package via composer:
 
 ```bash
-composer require abbieben07/core
+composer require abbieben07/LaravelKit
 ```
 
 You can publish and run the migrations with:
@@ -76,8 +76,8 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [Abraham Achile Ben-Obaje](https://github.com/abbieben07)
-- [All Contributors](../../contributors)
+-   [Abraham Achile Ben-Obaje](https://github.com/abbieben07)
+-   [All Contributors](../../contributors)
 
 ## License
 
