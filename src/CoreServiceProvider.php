@@ -15,10 +15,10 @@ class CoreServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name("abbieben/laravel-kit")
-            ->hasConfigFile("github")
-            ->publishesServiceProvider("MacroServiceProvider")
-            ->hasViews("")
+            ->name('abbieben/laravel-kit')
+            ->hasConfigFile('github')
+            ->publishesServiceProvider('MacroServiceProvider')
+            ->hasViews('')
             ->hasAssets();
     }
 }
